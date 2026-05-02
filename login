@@ -29,7 +29,7 @@
             align-items: stretch;
         }
 
-        /* LEFT PANEL */
+   
         .left-panel {
             width: 45%;
             background: var(--slate);
@@ -127,7 +127,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* RIGHT PANEL */
+      
         .right-panel {
             flex: 1;
             display: flex;
