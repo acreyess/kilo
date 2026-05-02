@@ -1,1 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Calculator</title>
+    <link rel="stylesheet" href="bmi.css">
+</head>
+<body>
 
+<h1>Health Calculator</h1>
+<p class="subtitle">Calculate your BMI and get personalized running recommendations</p>
+
+<div class="container">
+
+    <!-- LEFT CARD -->
+    <div class="card">
+        <h2>⚖ BMI Calculator</h2>
+
+        <label>Weight (kg)</label>
+        <input type="number" id="weight" value="0">
+
+        <label>Height (cm)</label>
+        <input type="number" id="height" value="0">
+
+        <label>Age</label>
+        <input type="number" id="age" value="0">
+
+        <label>Gender</label>
+        <div class="gender">
+            <button onclick="setGender('male')" id="maleBtn" class="active">Male</button>
+            <button onclick="setGender('female')" id="femaleBtn">Female</button>
+        </div>
+
+        <label>Activity Level</label>
+        <select id="activity">
+            <option>Moderate (exercise 3-5 days/week)</option>
+            <option>Light</option>
+            <option>Heavy</option>
+        </select>
+
+        <button class="calc-btn" onclick="calculate()">Calculate</button>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+
+        <div class="card result">
+            <h2>Your BMI Result</h2>
+
+            <h1 id="bmi">0</h1>
+            <span id="status" class="badge">Normal</span>
+
+            <div class="info">
+                <div>
+                    <p>Weight</p>
+                    <h3 id="w">0 kg</h3>
+                </div>
+                <div>
+                    <p>Height</p>
+                    <h3 id="h">0 cm</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card calories">
+            <h2>🔥 Daily Calorie Needs</h2>
+            <h1 id="calories">2546</h1>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+let gender = "male";
+
+function setGender(g) {
+    gender = g;
+    document.getElementById("maleBtn").classList.remove("active");
+    document.getElementById("femaleBtn").classList.remove("active");
+    document.getElementById(g + "Btn").classList.add("active");
+}
+
+function calculate() {
+    let w = document.getElementById("weight").value;
+    let h = document.getElementById("height").value / 100;
+    let age = document.getElementById("age").value;
+
+    let bmi = w / (h * h);
+    document.getElementById("bmi").innerText = bmi.toFixed(1);
+
+    let status = "Normal";
+    if (bmi < 18.5) status = "Underweight";
+    else if (bmi > 25) status = "Overweight";
+
+    document.getElementById("status").innerText = status;
+
+    // Simple calorie estimate
+    let calories = 2000;
+    if (gender === "male") calories = 10*w + 6.25*(h*100) - 5*age + 5;
+    else calories = 10*w + 6.25*(h*100) - 5*age - 161;
+
+    document.getElementById("calories").innerText = Math.round(calories);
+
+    document.getElementById("w").innerText = w + " kg";
+    document.getElementById("h").innerText = (h*100) + " cm";
+}
+</script>
+<link rel="stylesheet" href="style.css">
+</body>
+</html>
